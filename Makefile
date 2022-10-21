@@ -21,10 +21,11 @@ $(BUILD)/build.ninja:
 	@mkdir -p $(BUILD)
 	@cd $(BUILD); cmake -GNinja ../
 
-kernel: .config $(BUILD)/build.ninja
+kernel: .config $(BUILD)/Makefile
 	@tools/build_toolchain.sh
+	@make -C build install -j$(NPROC)
 	@# ninja -C build 
-	@ninja -C build install
+	@# ninja -C build install
 	@#cd $(BUILD); cmake --install . &2>1 >/dev/null
 	@cp $(BUILD)/compile_commands.json .
 
